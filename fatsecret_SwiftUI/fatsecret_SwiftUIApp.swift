@@ -11,7 +11,7 @@ import SwiftUI
 struct fatsecret_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DiaryView()
         }
     }
 }
