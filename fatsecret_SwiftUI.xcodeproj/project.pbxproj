@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		C432760A2F9658EB007AB988 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43276092F9658EA007AB988 /* Date+Extensions.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		C43276092F9658EA007AB988 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		C4A503372F8E9859000FA8A8 /* fatsecret_SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fatsecret_SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,18 +29,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C432760B2F9659DC007AB988 /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-				C43276092F9658EA007AB988 /* Date+Extensions.swift */,
-			);
-			path = extensions;
-			sourceTree = "<group>";
-		};
 		C4A5032E2F8E9859000FA8A8 = {
 			isa = PBXGroup;
 			children = (
-				C432760B2F9659DC007AB988 /* extensions */,
 				C4A503392F8E9859000FA8A8 /* fatsecret_SwiftUI */,
 				C4A503382F8E9859000FA8A8 /* Products */,
 			);
@@ -133,7 +119,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C432760A2F9658EB007AB988 /* Date+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
