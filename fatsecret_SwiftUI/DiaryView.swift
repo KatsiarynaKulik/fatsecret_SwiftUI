@@ -9,28 +9,45 @@ import SwiftUI
 
 struct DiaryView: View {
 
+    // Данные для карточек
+    @State private var breakfast = MealData(
+        type: .breakfast,
+        proteins: 0,
+        fats: 0,
+        carbs: 0,
+        calories: 0
+    )
+
+    @State private var lunch = MealData(
+        type: .lunch,
+        proteins: 0,
+        fats: 0,
+        carbs: 0,
+        calories: 0
+    )
+
+    @State private var dinner = MealData(
+        type: .dinner,
+        proteins: 0,
+        fats: 0,
+        carbs: 0,
+        calories: 0
+        )
+
+        @State private var snack = MealData(
+            type: .snack,
+            proteins: 0,
+            fats: 0,
+            carbs: 0,
+            calories: 0
+    )
+
     private let weekDates = Date().datesOfCurrentWeek()
     private let weekDays = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-
-    // Временные данные для примера
-    @State private var proteins: Double = 25.4    // белки (граммы)
-    @State private var fats: Double = 12.8       // жиры (граммы)
-    @State private var carbs: Double = 45.2      // углеводы (граммы)
-    @State private var calories: Int = 420       // калории (ккал)
 
     var body: some View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
-//                Button(action: {
-//                    print("Действие: поиск")
-//                }) {
-//                    Image(systemName: "magnifyingglass")
-//                        .font(.system(size: 20, weight: .medium))
-//                        .foregroundColor(.black)
-//                        .frame(width: 44, height: 44)
-//                        .background(Color.gray)
-//                        .clipShape(.circle)
-//                }
 
                 Button(action: {
                     print("Действие: открывать календарь")
@@ -43,7 +60,6 @@ struct DiaryView: View {
                         .clipShape(.circle)
                 }
             }
-           // .background(Color.red)
 
             Text(Date().formattedTodayDate())
                 .font(.system(size: 16, weight: .medium))
@@ -74,7 +90,7 @@ struct DiaryView: View {
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
 
-                    Text(String(proteins))
+                    Text("\(breakfast.proteins + lunch.proteins + dinner.proteins + snack.proteins)")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
                 }
@@ -84,7 +100,7 @@ struct DiaryView: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
 
-                    Text(String(fats))
+                    Text("\(breakfast.fats + lunch.fats + dinner.fats + snack.fats)")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
                 }
@@ -94,7 +110,7 @@ struct DiaryView: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
 
-                    Text(String(carbs))
+                    Text("\(breakfast.carbs + lunch.carbs + dinner.carbs + snack.carbs)")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.6))
                 }
@@ -104,12 +120,27 @@ struct DiaryView: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray.opacity(0.9))
 
-                    Text(String(calories))
+                    Text("\(breakfast.calories + lunch.calories + dinner.calories + snack.calories)")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.gray.opacity(0.9))
                 }
             }
-            .padding(.horizontal)
+            // Карточки приемов пищи
+            MealCard(meal: breakfast) {
+                print("Добавить в завтрак")
+            }
+
+            MealCard(meal: lunch) {
+                print("Добавить в обед")
+            }
+
+            MealCard(meal: dinner) {
+                print("Добавить в ужин")
+            }
+
+            MealCard(meal: snack) {
+                print("Добавить перекус")
+            }
         }
     }
 
