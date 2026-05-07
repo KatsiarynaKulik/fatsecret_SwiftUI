@@ -2,7 +2,7 @@
 //  fatsecret_SwiftUIApp.swift
 //  fatsecret_SwiftUI
 //
-//  Created by Екатерина  on 14.04.26.
+//  Created by Kate Kulik  on 14.04.26.
 //
 
 import SwiftUI

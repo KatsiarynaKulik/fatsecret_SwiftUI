@@ -2,7 +2,7 @@
 //  MealCardView.swift
 //  fatsecret_SwiftUI
 //
-//  Created by Екатерина  on 2.05.26.
+//  Created by Kate Kulik  on 2.05.26.
 //
 
 import SwiftUI
