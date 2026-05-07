@@ -2,15 +2,15 @@
 //  DiaryViewModel.swift
 //  fatsecret_SwiftUI
 //
-//  Created by Екатерина  on 18.04.26.
+//  Created by Kate Kulik  on 18.04.26.
 //
 
 import Foundation
-import Combine  // ← Добавь этот импорт для @Published
+import Combine
 import SwiftUI
 
 class DiaryViewModel: ObservableObject {
-    // Данные для карточек
+    // Данные для карточек (заглушки). Потом добавлю реальные данные
     @Published var breakfast = MealData(
         type: .breakfast,
         proteins: 0,
@@ -42,6 +42,8 @@ class DiaryViewModel: ObservableObject {
         carbs: 0,
         calories: 0
     )
+
+    @Published var isCalendarPresented = false
 
     let weekDates = Date().datesOfCurrentWeek()
     let weekDays = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
@@ -88,6 +90,10 @@ class DiaryViewModel: ObservableObject {
     }
 
     func openCalendar() {
-        print("Действие: открывать календарь")
+        isCalendarPresented = true
+    }
+
+    func closeCalendar() {
+        isCalendarPresented = false
     }
 }

@@ -2,7 +2,7 @@
 //  DiaryView.swift
 //  fatsecret_SwiftUI
 //
-//  Created by Екатерина  on 6.05.26.
+//  Created by Kate Kulik  on 6.05.26.
 //
 
 import SwiftUI
@@ -72,6 +72,13 @@ struct DiaryView: View {
 
             MealCard(meal: viewModel.snack) {
                 print("Добавить перекус")
+            }
+            // MARK: - Navigation To CalendarView
+            .sheet(isPresented: $viewModel.isCalendarPresented) {
+                CalendarView()
+                    .presentationDetents([.height(500)])  // Подумать над высотой
+                    .presentationBackground(.white)
+                    .ignoresSafeArea()
             }
         }
     }
