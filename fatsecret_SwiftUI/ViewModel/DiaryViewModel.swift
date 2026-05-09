@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 class DiaryViewModel: ObservableObject {
-    // Данные для карточек (заглушки). Потом добавлю реальные данные
+    // TODO: Данные для карточек (заглушки). Потом добавлю реальные данные
     @Published var breakfast = MealData(
         type: .breakfast,
         proteins: 0,
@@ -44,8 +44,12 @@ class DiaryViewModel: ObservableObject {
     )
 
     @Published var isCalendarPresented = false
+    @Published var currentDate = Date()
 
-    let weekDates = Date().datesOfCurrentWeek()
+    var weekDates: [Date] {
+        currentDate.datesOfCurrentWeek()  // Динамическое обновление недели
+    }
+
     let weekDays = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
 
     var totalProteins: Double {
@@ -65,28 +69,38 @@ class DiaryViewModel: ObservableObject {
     }
 
     func circleColor(for date: Date) -> Color {
-        if date.isPast() {
-            return Color.green.opacity(0.2)
+        if isSelectedDate(date) {
+            return Color.white  // Выбранная дата - белый фон
+        } else if date.isPast() {
+            return Color.green.opacity(0.2)  // Пройденные дни
         } else if date.isToday {
-            return Color.white
+            return Color.white  // Сегодня (но не выбрано)
         } else {
-            return Color.gray.opacity(0.3)
+            return Color.gray.opacity(0.3)  // Будущие дни
         }
     }
 
     @ViewBuilder
     func circleContent(for date: Date) -> some View {
-        if date.isPast() {
+        if date.isPast() && !isSelectedDate(date) {
+            // Прошедшая дата (не выбранная) - галочка
             Image(systemName: "checkmark")
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(.green)
-        } else if date.isToday {
-            Text("\(date.dayOfMonth)")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.black)
+        } else if isSelectedDate(date) {
+            // Выбранная дата - ничего не отображаем (пусто)
+            Text("")
+        } else if date.isToday && !isSelectedDate(date) {
+            // Сегодняшняя дата (не выбранная) - ничего не отображаем
+            Text("")
         } else {
+            // Будущая дата - ничего не отображаем
             Text("")
         }
+    }
+
+    func isSelectedDate(_ date: Date) -> Bool {
+        Calendar.current.isDate(date, inSameDayAs: currentDate)
     }
 
     func openCalendar() {
@@ -95,5 +109,16 @@ class DiaryViewModel: ObservableObject {
 
     func closeCalendar() {
         isCalendarPresented = false
+    }
+
+    func updateCurrentDate(_ date: Date) {
+        currentDate = date
+        //loadDataForDate(date)
+        print("Обновляю календарь с датой \(date.formattedTodayDate())")
+    }
+
+    func loadDataForDate(_ date: Date) {
+        // TODO: Здесь загрузка данных из базы или API
+        print("Загрузка данных для: \(date.formattedTodayDate())")
     }
 }
