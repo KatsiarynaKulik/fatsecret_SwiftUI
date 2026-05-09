@@ -25,7 +25,7 @@ struct DiaryView: View {
             }
 
             // Дата
-            Text(Date().formattedTodayDate())
+            Text(viewModel.currentDate.formattedTodayDate())
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.black)
 
@@ -39,7 +39,7 @@ struct DiaryView: View {
                             .overlay(viewModel.circleContent(for: date))
                             .overlay(
                                 Circle()
-                                    .stroke(date.isToday ? Color.green : Color.clear, lineWidth: 2)
+                                    .stroke(viewModel.isSelectedDate(date) ? Color.green : Color.clear, lineWidth: 2)
                             )
 
                         Text(viewModel.weekDays[index])
@@ -75,8 +75,10 @@ struct DiaryView: View {
             }
             // MARK: - Navigation To CalendarView
             .sheet(isPresented: $viewModel.isCalendarPresented) {
-                CalendarView()
-                    .presentationDetents([.height(500)])  // Подумать над высотой
+                CalendarView(onDateSelected: { selectedDate in
+                    viewModel.updateCurrentDate(selectedDate)
+                })
+                    .presentationDetents([.height(500)])  // TODO: Подумать над высотой
                     .presentationBackground(.white)
                     .ignoresSafeArea()
             }
