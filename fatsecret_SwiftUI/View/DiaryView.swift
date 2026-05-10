@@ -39,8 +39,15 @@ struct DiaryView: View {
                             .overlay(viewModel.circleContent(for: date))
                             .overlay(
                                 Circle()
-                                    .stroke(viewModel.isSelectedDate(date) ? Color.green : Color.clear, lineWidth: 2)
+                                    .stroke(viewModel.isSelectedDate(date) ? Color.green : Color.gray.opacity(0.3), lineWidth: 1)
                             )
+
+                            .onTapGesture {
+                                // обработчик нажатия
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                    viewModel.updateCurrentDate(date)
+                                }
+                            }
 
                         Text(viewModel.weekDays[index])
                             .font(.system(size: 12, weight: .medium))
