@@ -69,30 +69,46 @@ class DiaryViewModel: ObservableObject {
     }
 
     func circleColor(for date: Date) -> Color {
-        if isSelectedDate(date) {
-            return Color.white  // Выбранная дата - белый фон
+        if isSelectedDate(date) && date.isToday {
+            // Выбранная сегодняшняя дата - зеленый фон
+            return Color.green
+        } else if isSelectedDate(date) {
+            // Выбранная дата (не сегодня) 
+            return Color.gray.opacity(0.2)
         } else if date.isPast() {
-            return Color.green.opacity(0.2)  // Пройденные дни
+            // Пройденные дни (не выбранные)
+            return Color.gray.opacity(0.2)
         } else if date.isToday {
-            return Color.white  // Сегодня (но не выбрано)
+            // Сегодня (не выбрано)
+            return Color.gray
         } else {
-            return Color.gray.opacity(0.3)  // Будущие дни
+            // Будущие дни
+            return Color.gray.opacity(0.3)
         }
     }
 
     @ViewBuilder
     func circleContent(for date: Date) -> some View {
         if date.isPast() && !isSelectedDate(date) {
-            // Прошедшая дата (не выбранная) - галочка
+            // Прошедшая дата (не выбранная) - зеленая галочка
             Image(systemName: "checkmark")
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(.green)
+        } else if isSelectedDate(date) && date.isToday {
+            // Выбранная сегодняшняя дата - белая галочка
+            Image(systemName: "checkmark")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.white)
         } else if isSelectedDate(date) {
-            // Выбранная дата - ничего не отображаем (пусто)
-            Text("")
+            // Выбранная дата (не сегодня)
+            Image(systemName: "checkmark")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.green)
         } else if date.isToday && !isSelectedDate(date) {
-            // Сегодняшняя дата (не выбранная) - ничего не отображаем
-            Text("")
+            // Сегодняшняя дата (не выбранная)
+            Image(systemName: "checkmark")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.white)
         } else {
             // Будущая дата - ничего не отображаем
             Text("")
